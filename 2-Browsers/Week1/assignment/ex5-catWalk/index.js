@@ -20,8 +20,43 @@ Full description at: https://github.com/HackYourFuture/Assignments/tree/main/2-B
 
    https://media1.tenor.com/images/2de63e950fb254920054f9bd081e8157/tenor.gif
 -----------------------------------------------------------------------------*/
-function catWalk() {
-  // TODO complete this function
-}
+window.addEventListener('load', () => {
+  const cat = document.querySelector('img');
+  const originalSrc = cat.src;
+  const dancingSrc =
+    'https://media1.tenor.com/images/2de63e950fb254920054f9bd081e8157/tenor.gif';
 
-// TODO execute `catWalk` when the browser has completed loading the page
+  cat.style.left = '0px'; // start at left
+  const step = 10; // pixels per interval
+  let dancing = false;
+  function catWalk() {
+    let currentLeft = parseInt(cat.style.left);
+
+    // If dancing, do not move
+    if (dancing) return;
+
+    // Move the cat
+    currentLeft += step;
+    cat.style.left = currentLeft + 'px';
+
+    const windowWidth = window.innerWidth;
+    const catWidth = cat.width;
+
+    // Restart at left if reached right edge
+    if (currentLeft + catWidth >= windowWidth) {
+      cat.style.left = '0px';
+    }
+
+    // Start dancing at middle of screen
+    if (!dancing && currentLeft + catWidth / 2 >= windowWidth / 2) {
+      dancing = true;
+      cat.src = dancingSrc;
+      setTimeout(() => {
+        cat.src = originalSrc;
+        dancing = false;
+      }, 5000); // dance for 5 seconds
+    }
+  }
+
+  setInterval(catWalk, 50);
+});

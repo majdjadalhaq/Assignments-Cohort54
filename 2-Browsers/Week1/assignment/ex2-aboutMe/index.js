@@ -8,4 +8,13 @@ Full description at: https://github.com/HackYourFuture/Assignments/tree/main/2-B
 3. Look in the css file!
 ------------------------------------------------------------------------------*/
 
-// TODO add your JavaScript code here.
+// 1. Replace span contents with your info
+document.getElementById('nickname').textContent = 'Majd';
+document.getElementById('fav-food').textContent = 'Pizza';
+document.getElementById('hometown').textContent = 'Lelystad';
+
+// 2. Iterate through each <li> and change the class to 'list-item'
+const listItems = document.querySelectorAll('ul li');
+listItems.forEach((li) => {
+  li.className = 'list-item';
+});
