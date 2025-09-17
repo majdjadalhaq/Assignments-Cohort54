@@ -20,43 +20,50 @@ Full description at: https://github.com/HackYourFuture/Assignments/tree/main/2-B
 
    https://media1.tenor.com/images/2de63e950fb254920054f9bd081e8157/tenor.gif
 -----------------------------------------------------------------------------*/
-window.addEventListener('load', () => {
+function catWalk() {
   const cat = document.querySelector('img');
-  const originalSrc = cat.src;
-  const dancingSrc =
+  const originalCatSrc = cat.src;
+  const dancingCatSrc =
     'https://media1.tenor.com/images/2de63e950fb254920054f9bd081e8157/tenor.gif';
 
-  cat.style.left = '0px'; // start at left
-  const step = 10; // pixels per interval
-  let dancing = false;
-  function catWalk() {
-    let currentLeft = parseInt(cat.style.left);
+  cat.style.position = 'absolute';
+  cat.style.left = '0px';
 
-    // If dancing, do not move
-    if (dancing) return;
+  let walkInterval;
+  let hasDanced = false; // Flag to track if cat already danced in this crossing
 
-    // Move the cat
-    currentLeft += step;
-    cat.style.left = currentLeft + 'px';
-
+  function walk() {
+    let currentLeft = parseInt(cat.style.left, 10);
     const windowWidth = window.innerWidth;
     const catWidth = cat.width;
 
-    // Restart at left if reached right edge
-    if (currentLeft + catWidth >= windowWidth) {
+    // Move the cat
+    cat.style.left = currentLeft + 10 + 'px';
+
+    // Reset to left side when reaching right edge
+    if (currentLeft > windowWidth) {
       cat.style.left = '0px';
+      hasDanced = false; // Reset dance flag for next crossing
+      return;
     }
 
-    // Start dancing at middle of screen
-    if (!dancing && currentLeft + catWidth / 2 >= windowWidth / 2) {
-      dancing = true;
-      cat.src = dancingSrc;
+    // Middle of the screen: trigger dance only if not danced yet
+    const middleStart = windowWidth / 2 - catWidth / 2;
+    const middleEnd = windowWidth / 2 + catWidth / 2;
+
+    if (!hasDanced && currentLeft >= middleStart && currentLeft <= middleEnd) {
+      hasDanced = true; // Mark that cat has danced
+      clearInterval(walkInterval);
+      cat.src = dancingCatSrc;
+
       setTimeout(() => {
-        cat.src = originalSrc;
-        dancing = false;
-      }, 5000); // dance for 5 seconds
+        cat.src = originalCatSrc;
+        walkInterval = setInterval(walk, 50);
+      }, 5000);
     }
   }
 
-  setInterval(catWalk, 50);
-});
+  walkInterval = setInterval(walk, 50);
+}
+
+window.addEventListener('load', catWalk);
