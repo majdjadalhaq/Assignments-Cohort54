@@ -23,5 +23,3 @@ function hijackGoogleLogo() {
 
 // Execute
 hijackGoogleLogo();
-
-hijackGoogleLogo();
