@@ -1,19 +1,28 @@
 *** Unit Test Error Report ***
 
- PASS  .dist/2-Browsers/Week1/unit-tests/ex3-hijackLogo.test.js
+Command failed: npx jest /Users/majdjadalhaq/Desktop/Assignments-Cohort54/.dist/2-Browsers/Week1/unit-tests/ex3-hijackLogo.test.js --colors --noStackTrace --json
+ FAIL  .dist/2-Browsers/Week1/unit-tests/ex3-hijackLogo.test.js
   br-wk1-ex3-hijackLogo
-    ✅ should have all TODO comments removed (2 ms)
-    ✅ should set the `.src` property (1 ms)
-    ✅ should set the `.srcset` property
+    ❌ should have all TODO comments removed
+    ❌ should set the `.src` property
+    ❌ should set the `.srcset` property
 
-Test Suites: 1 passed, 1 total
-Tests:       3 passed, 3 total
+  ● br-wk1-ex3-hijackLogo › should have all TODO comments removed
+
+    ENOENT: no such file or directory, open '/Users/majdjadalhaq/Desktop/Assignments-Cohort54/2-Browsers/Week1/assignment/ex3-hijackLogo/index.js'
+
+  ● br-wk1-ex3-hijackLogo › should set the `.src` property
+
+    ENOENT: no such file or directory, open '/Users/majdjadalhaq/Desktop/Assignments-Cohort54/2-Browsers/Week1/assignment/ex3-hijackLogo/index.js'
+
+  ● br-wk1-ex3-hijackLogo › should set the `.srcset` property
+
+    ENOENT: no such file or directory, open '/Users/majdjadalhaq/Desktop/Assignments-Cohort54/2-Browsers/Week1/assignment/ex3-hijackLogo/index.js'
+
+Test Suites: 1 failed, 1 total
+Tests:       3 failed, 3 total
 Snapshots:   0 total
-Time:        0.409 s, estimated 1 s
+Time:        0.627 s, estimated 1 s
 Ran all test suites matching /\/Users\/majdjadalhaq\/Desktop\/Assignments-Cohort54\/.dist\/2-Browsers\/Week1\/unit-tests\/ex3-hijackLogo.test.js/i.
 No linting errors detected.
-
-
-*** Spell Checker Report ***
-
-2-Browsers/Week1/assignment/ex3-hijackLogo.js:11:73 - Unknown word (Xdpd)
+No spelling errors detected.
