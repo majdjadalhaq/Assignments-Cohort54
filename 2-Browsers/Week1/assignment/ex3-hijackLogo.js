@@ -14,7 +14,7 @@ function hijackGoogleLogo() {
 
   if (logo) {
     // 2. Replace the src and srcset with HackYourFuture logo
-    logo.src = 'https://www.hackyourfuture.dk/static/images/logo.png';
+    logo.src = 'assets/hyf-logo-black-bg-small.png';
     logo.srcset = '';
   } else {
     console.log('Google logo not found!');
