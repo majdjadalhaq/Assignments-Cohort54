@@ -48,19 +48,19 @@ function main() {
     {
       title: 'The Design of Everyday Things',
       author: 'Don Norman',
-      image: 'the_design_of_everyday_things.jpg',
+      isbn: '978-0465050659',
       alreadyRead: false,
     },
     {
       title: 'The Most Human Human',
       author: 'Brian Christian',
-      image: 'the_most_human_human.jpg',
+      isbn: '978-1617933431',
       alreadyRead: true,
     },
     {
       title: 'The Pragmatic Programmer',
       author: 'Andrew Hunt',
-      image: 'the_pragmatic_programmer.jpg',
+      isbn: '978-0201616224',
       alreadyRead: true,
     },
   ];
@@ -70,4 +70,3 @@ function main() {
 }
 
 window.addEventListener('load', main);
-
