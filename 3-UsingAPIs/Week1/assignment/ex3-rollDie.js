@@ -10,7 +10,6 @@ Full description at: https://github.com/HackYourFuture/Assignments/tree/main/3-U
   explanation? Add your answer as a comment to be bottom of the file.
 ------------------------------------------------------------------------------*/
 
-// TODO Remove callback and return a promise
 export function rollDie() { 
  return new Promise((resolve, reject) => {
 
@@ -25,7 +24,6 @@ export function rollDie() {
 
     // Use callback to notify that the die rolled off the table after 6 rolls
     if (roll > 6) {
-      // TODO replace "error" callback
       reject(new Error('Oops... Die rolled off the table.'));
       return;
     }
@@ -37,7 +35,9 @@ export function rollDie() {
     }
 
     // Schedule the next roll todo until no more rolls to do
+   if (roll < randomRollsToDo) {
       setTimeout(() => rollOnce(roll + 1), 500);
+    }
   };
 
   // Start the initial roll
@@ -46,12 +46,11 @@ export function rollDie() {
 }
 
 function main() {
-  // TODO Refactor to use promise
-  rollDie(() => {
-    .then((value) => console.log(`Success! Die settled on ${value}.`))
-    .catch((error) => console.log(error.message));
+  rollDie()
+    .then(value => console.log(`Success! Die settled on ${value}.`))
+    .catch(error => console.log(error.message));
 }
-}
+
 
 // ! Do not change or remove the code below
 if (process.env.NODE_ENV !== 'test') {
