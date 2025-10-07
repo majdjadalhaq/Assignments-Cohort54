@@ -27,11 +27,12 @@ exercise file.
 import { rollDie } from '../../helpers/pokerDiceRoller.js';
 
 export function rollDice() {
-  // TODO Refactor this function
   const dice = [1, 2, 3, 4, 5];
-  return rollDie(1);
-}
 
+  const dicePromises = dice.map(() => rollDie());
+  return Promise.all(dicePromises);
+  }
+  
 function main() {
   rollDice()
     .then((results) => console.log('Resolved!', results))
@@ -43,4 +44,14 @@ if (process.env.NODE_ENV !== 'test') {
   main();
 }
 
-// TODO Replace this comment by your explanation that was asked for in the assignment description.
+/* 
+Explanation:
+
+We throw five dice at the same time using Promise.all. Each die is like a separate promise.
+- If all dice finish rolling without problems, we get an array with all the results.
+- If one die falls off the table, Promise.all stops and gives an error.
+
+Even if one die fails, the other dice keep rolling. 
+This happens because each die rolls in its own process, and Promise.all cannot stop them once they started. 
+It only stops the main result from coming, but the dice themselves keep going until they finish.
+*/
