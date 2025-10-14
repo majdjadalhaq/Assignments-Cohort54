@@ -8,4 +8,17 @@ Full description at: https://github.com/HackYourFuture/Assignments/tree/main/2-B
 3. Look in the css file!
 ------------------------------------------------------------------------------*/
 
-// TODO add your JavaScript code here.
+function main() {
+  // Replace spans with your info
+  document.getElementById('nickname').textContent = 'Majd';
+  document.getElementById('fav-food').textContent = 'Pizza';
+  document.getElementById('hometown').textContent = 'palestine';
+
+  // Select all <li> elements and set their class to 'list-item'
+  const listItems = document.querySelectorAll('li');
+  for (const item of listItems) {
+    item.className = 'list-item';
+  }
+}
+
+window.addEventListener('load', main);
