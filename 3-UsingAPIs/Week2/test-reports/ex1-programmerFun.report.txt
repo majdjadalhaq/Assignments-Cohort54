@@ -1,0 +1,40 @@
+*** Unit Test Error Report ***
+
+Command failed: npx jest /Users/majdjadalhaq/Desktop/Assignments-Cohort54/.dist/3-UsingAPIs/Week2/unit-tests/ex1-programmerFun.test.js --colors --noStackTrace --json
+ FAIL  .dist/3-UsingAPIs/Week2/unit-tests/ex1-programmerFun.test.js
+  api-wk2-ex1-programmerFun
+    ✅ HTML should be syntactically valid (145 ms)
+    ✅ should have all TODO comments removed
+    ❌ should use `fetch()` (1 ms)
+    ❌ should use async/wait
+    ❌ should use try/catch
+
+  ● api-wk2-ex1-programmerFun › should use `fetch()`
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+  ● api-wk2-ex1-programmerFun › should use async/wait
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+  ● api-wk2-ex1-programmerFun › should use try/catch
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+Test Suites: 1 failed, 1 total
+Tests:       3 failed, 2 passed, 5 total
+Snapshots:   0 total
+Time:        2.984 s, estimated 4 s
+Ran all test suites matching /\/Users\/majdjadalhaq\/Desktop\/Assignments-Cohort54\/.dist\/3-UsingAPIs\/Week2\/unit-tests\/ex1-programmerFun.test.js/i.
+No linting errors detected.
+
+
+*** Spell Checker Report ***
+
+3-UsingAPIs/Week2/assignment/ex1-programmerFun/index.js:40:30 - Unknown word (xkcd)
