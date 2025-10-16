@@ -21,18 +21,77 @@ Use async/await and try/catch to handle promises.
 Try and avoid using global variables. As much as possible, try and use function 
 parameters and return values to pass data back and forth.
 ------------------------------------------------------------------------------*/
-function fetchData(/* TODO parameter(s) go here */) {
-  // TODO complete this function
+async function fetchData(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Fetch error:', error);
+  }
 }
 
-function fetchAndPopulatePokemons(/* TODO parameter(s) go here */) {
-  // TODO complete this function
+async function fetchAndPopulatePokemons(selectEl) {
+  const data = await fetchData('https://pokeapi.co/api/v2/pokemon?limit=150');
+  if (!data) return;
+
+  data.results.forEach((pokemon) => {
+    const option = document.createElement('option');
+    option.value = pokemon.url; // Store the API URL for each Pokémon
+    option.textContent = pokemon.name;
+    selectEl.appendChild(option);
+  });
 }
 
-function fetchImage(/* TODO parameter(s) go here */) {
-  // TODO complete this function
+async function fetchImage(pokemonUrl, imgEl) {
+  if (!pokemonUrl) {
+    imgEl.hidden = true;
+    return;
+  }
+
+  const data = await fetchData(pokemonUrl);
+  if (data && data.sprites && data.sprites.front_default) {
+    imgEl.src = data.sprites.front_default;
+    imgEl.alt = data.name;
+    imgEl.hidden = false;
+  } else {
+    imgEl.hidden = true;
+  }
 }
 
-function main() {
-  // TODO complete this function
+async function main() {
+  // Create elements dynamically
+  const container = document.createElement('div');
+  container.classList.add('container');
+
+  const title = document.createElement('h1');
+  title.textContent = 'Pokémon Browser';
+
+  const select = document.createElement('select');
+  const defaultOption = document.createElement('option');
+  defaultOption.textContent = 'Select a Pokémon';
+  defaultOption.value = '';
+  select.appendChild(defaultOption);
+
+  const img = document.createElement('img');
+  img.id = 'pokemon-image';
+  img.hidden = true;
+
+  // Add elements to the DOM
+  container.append(title, select, img);
+  document.body.appendChild(container);
+
+  // Populate dropdown
+  await fetchAndPopulatePokemons(select);
+
+  // Add event listener
+  select.addEventListener('change', async (event) => {
+    const pokemonUrl = event.target.value;
+    await fetchImage(pokemonUrl, img);
+  });
 }
+
+// Run when page is loaded
+window.addEventListener('load', main);

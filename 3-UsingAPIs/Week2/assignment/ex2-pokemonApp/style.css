@@ -1,1 +1,49 @@
 /* add your styling here */
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f6fc;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  text-align: center;
+  background: white;
+  padding: 2rem 3rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #ef5350;
+  margin-bottom: 1rem;
+}
+
+select {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background: #fafafa;
+  cursor: pointer;
+}
+
+select:hover {
+  border-color: #ef5350;
+}
+
+img {
+  display: block;
+  width: 150px;
+  height: 150px;
+  margin: 1.5rem auto 0;
+  image-rendering: pixelated;
+  transition: transform 0.3s ease;
+}
+
+img:hover {
+  transform: scale(1.1);
+}

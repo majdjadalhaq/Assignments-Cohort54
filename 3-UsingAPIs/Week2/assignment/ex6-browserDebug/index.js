@@ -2,9 +2,22 @@
 Full description at:https://github.com/HackYourFuture/Assignments/blob/main/3-UsingAPIs/Week2/README.md#exercise-6-using-the-browser-debugger
 */
 
+/*
+Full description at:
+https://github.com/HackYourFuture/Assignments/blob/main/3-UsingAPIs/Week2/README.md#exercise-6-using-the-browser-debugger
+
+This exercise focuses on learning to debug web-based JavaScript using the browser debugger.
+Try placing breakpoints in getData(), renderLaureate(), and fetchAndRender() to inspect
+data flow, function calls, and variable values.
+*/
+
 async function getData(url) {
   const response = await fetch(url);
-  return response.json();
+  if (!response.ok) {
+    throw new Error(`HTTP error: ${response.status}`);
+  }
+  const data = await response.json();
+  return data;
 }
 
 function createAndAppend(name, parent, options = {}) {
@@ -29,9 +42,39 @@ function addTableRow(table, label, value) {
 function renderLaureate(ul, { knownName, birth, death }) {
   const li = createAndAppend('li', ul);
   const table = createAndAppend('table', li);
-  addTableRow(table, 'Name', knownName.en);
-  addTableRow(table, 'Birth', `${birth.date}, ${birth.place.locationString}`);
-  addTableRow(table, 'Death', `${death.date}, ${death.place.locationString}`);
+
+  // Name
+  addTableRow(table, 'Name', knownName?.en ?? 'Unknown');
+
+  // Birth
+  const birthPlace = birth?.place
+    ? [
+        birth.place.city?.en,
+        birth.place.country?.en,
+      ]
+        .filter(Boolean)
+        .join(', ')
+    : '';
+
+  const birthInfo = birth
+    ? `${birth.date ?? 'Unknown'}${birthPlace ? ', ' + birthPlace : ''}`
+    : 'Unknown';
+  addTableRow(table, 'Birth', birthInfo);
+
+  // Death
+  const deathPlace = death?.place
+    ? [
+        death.place.city?.en,
+        death.place.country?.en,
+      ]
+        .filter(Boolean)
+        .join(', ')
+    : '';
+
+  const deathInfo = death
+    ? `${death.date ?? 'N/A'}${deathPlace ? ', ' + deathPlace : ''}`
+    : 'Still alive';
+  addTableRow(table, 'Death', deathInfo);
 }
 
 function renderLaureates(laureates) {
@@ -41,10 +84,10 @@ function renderLaureates(laureates) {
 
 async function fetchAndRender() {
   try {
-    const laureates = getData(
+    const data = await getData(
       'https://api.nobelprize.org/2.0/laureates?birthCountry=Netherlands&format=json&csvLang=en'
     );
-    renderLaureates(laureates);
+    renderLaureates(data.laureates);
   } catch (err) {
     console.error(`Something went wrong: ${err.message}`);
   }
