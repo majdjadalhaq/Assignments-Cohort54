@@ -18,24 +18,13 @@ import { rollDie } from '../../helpers/pokerDiceRoller.js';
  * @returns {Promise<DieFace>}
  */
 export async function rollDieUntil(desiredValue) {
-  // Rewritten with async/await and a while loop (no recursion)
   let value;
-
-  while (true) {
-    try {
-      value = await rollDie(); // wait for the result
-      console.log(`Rolled: ${value}`);
-      if (value === desiredValue) {
-        return value; // stop when ACE is rolled
-      }
-    } catch (err) {
-      // If the die rolls off the table (rejection), rethrow the error
-      throw err;
-    }
+  while (value !== desiredValue) {
+    value = await rollDie();
   }
+  return value;
 }
 
-// Refactored main() to async/await and try/catch
 async function main() {
   try {
     const result = await rollDieUntil('ACE');

@@ -27,71 +27,70 @@ async function fetchData(url) {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    return await response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error('Fetch error:', error);
+    throw error;
   }
 }
 
-async function fetchAndPopulatePokemons(selectEl) {
-  const data = await fetchData('https://pokeapi.co/api/v2/pokemon?limit=150');
-  if (!data) return;
+async function fetchAndPopulatePokemons() {
+  const url = 'https://pokeapi.co/api/v2/pokemon?limit=150';
+  try {
+    const data = await fetchData(url);
+    const select = document.querySelector('select');
+    select.innerHTML = '';
 
-  data.results.forEach((pokemon) => {
-    const option = document.createElement('option');
-    option.value = pokemon.url; // Store the API URL for each Pokémon
-    option.textContent = pokemon.name;
-    selectEl.appendChild(option);
-  });
-}
-
-async function fetchImage(pokemonUrl, imgEl) {
-  if (!pokemonUrl) {
-    imgEl.hidden = true;
-    return;
-  }
-
-  const data = await fetchData(pokemonUrl);
-  if (data && data.sprites && data.sprites.front_default) {
-    imgEl.src = data.sprites.front_default;
-    imgEl.alt = data.name;
-    imgEl.hidden = false;
-  } else {
-    imgEl.hidden = true;
+    data.results.forEach((pokemon) => {
+      const option = document.createElement('option');
+      option.value = pokemon.url;
+      option.textContent = pokemon.name;
+      select.appendChild(option);
+    });
+  } catch (error) {
+    console.error('Error fetch pokemon list:', error);
   }
 }
 
-async function main() {
-  // Create elements dynamically
-  const container = document.createElement('div');
-  container.classList.add('container');
-
-  const title = document.createElement('h1');
-  title.textContent = 'Pokémon Browser';
+async function fetchImage(pokemonUrl) {
+  try {
+    const data = await fetchData(pokemonUrl);
+    const img = document.querySelector('img');
+    img.src = data.sprites.front_default;
+    img.alt = `${data.name} Pokemon sprite`;
+  } catch (error) {
+    console.error('Error fetch image:', error);
+  }
+}
+// Main function to set up event listeners and initialize the app 
+function main() {
+  const button = document.createElement('button');
+  button.id = 'get-button';
+  button.textContent = 'get pokemon';
+  document.body.appendChild(button);
 
   const select = document.createElement('select');
-  const defaultOption = document.createElement('option');
-  defaultOption.textContent = 'Select a Pokémon';
-  defaultOption.value = '';
-  select.appendChild(defaultOption);
+  select.id = 'pokemon-select';
+  document.body.appendChild(select);
+
+  const option = document.createElement('option');
+  option.value = '';
+  option.textContent = 'Select a Pokemon';
+  select.appendChild(option);
 
   const img = document.createElement('img');
-  img.id = 'pokemon-image';
-  img.hidden = true;
+  img.id = 'pokemon-img';
+  img.alt = `select a pokemon to see it image `;
+  document.body.appendChild(img);
 
-  // Add elements to the DOM
-  container.append(title, select, img);
-  document.body.appendChild(container);
+  button.addEventListener('click', fetchAndPopulatePokemons);
 
-  // Populate dropdown
-  await fetchAndPopulatePokemons(select);
-
-  // Add event listener
-  select.addEventListener('change', async (event) => {
-    const pokemonUrl = event.target.value;
-    await fetchImage(pokemonUrl, img);
+  select.addEventListener('change', (event) => {
+    if (event.target.value) {
+      fetchImage(event.target.value);
+    }
   });
 }
 
-// Run when page is loaded
 window.addEventListener('load', main);

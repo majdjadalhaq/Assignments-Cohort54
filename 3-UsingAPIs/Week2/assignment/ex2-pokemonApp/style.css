@@ -1,49 +1,42 @@
 /* add your styling here */
+/* Basic Reset and Setup */
 body {
   font-family: Arial, sans-serif;
-  background: #f2f6fc;
-  color: #333;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  display: flex; /* Arrange items */
+  flex-direction: column; /* Stack them vertically */
+  align-items: center; /* Center them horizontally */
+  margin-top: 50px; /* Add some space from the top */
+  background-color: #f4f4f4; /* Light background color */
 }
 
-.container {
-  text-align: center;
-  background: white;
-  padding: 2rem 3rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  color: #ef5350;
-  margin-bottom: 1rem;
-}
-
-select {
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+/* Style for the Button and Select */
+#get-button, #pokemon-select {
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
   border: 1px solid #ccc;
-  font-size: 1rem;
-  background: #fafafa;
+  font-size: 16px;
   cursor: pointer;
 }
 
-select:hover {
-  border-color: #ef5350;
+#get-button {
+  background-color: #3498db; /* A nice blue color */
+  color: white;
+  border-color: #2980b9;
+  transition: background-color 0.2s;
 }
 
-img {
-  display: block;
-  width: 150px;
-  height: 150px;
-  margin: 1.5rem auto 0;
-  image-rendering: pixelated;
-  transition: transform 0.3s ease;
+#get-button:hover {
+  background-color: #2980b9;
 }
 
-img:hover {
-  transform: scale(1.1);
+/* Style for the Image */
+#pokemon-img {
+  max-width: 200px; /* Keep the image at a reasonable size */
+  height: auto;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white; /* White background for the sprite */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
